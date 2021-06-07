@@ -10,4 +10,4 @@ typing-extensions
 pylint
 
 # needs this version, otherwise TypeErrors will break stuff
-yarl==1.5.1
+yarl==1.4.2
