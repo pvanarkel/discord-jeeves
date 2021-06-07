@@ -1,9 +1,13 @@
-aiohttp           3.7.4.post0
-async-timeout     3.0.1
-dice              3.1.2
-discord.py        1.7.1
-docopt            0.6.2
-multidict         5.1.0
-pyparsing         2.4.7
-typing-extensions 3.7.4.3
-yarl              1.6.3
+# nonspecific versions
+aiohttp
+async-timeout
+dice
+discord.py
+docopt
+multidict
+pyparsing
+typing-extensions
+pylint
+
+# needs this version, otherwise TypeErrors will break stuff
+yarl==1.5.1

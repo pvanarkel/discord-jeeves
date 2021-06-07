@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from types import resolve_bases
 import discord
 from discord.ext import commands
 import logging
