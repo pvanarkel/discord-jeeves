@@ -3,6 +3,7 @@ init:
 
 install:
 	cp jeevesbot/env.py.dist jeevesbot/env.py
+	cp jeevesbot/secret.json.dist jeevesbot/secret.json
 
 clearlog:
 	rm jeeves.log
@@ -10,6 +11,7 @@ clearlog:
 clean:
 	rm jeeves.log
 	rm jeevesbot/env.py
+	rm jeevesbot/secret.json
 	rm -rf jeevesbot/__pycache/
 	rm -rf __pycache/
 
