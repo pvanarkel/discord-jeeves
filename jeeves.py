@@ -4,6 +4,8 @@ import discord
 from discord.ext import commands
 import logging
 from jeevesbot import bothelp, functions, env
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 # setup logging
 logging.basicConfig(level=logging.INFO)
@@ -12,10 +14,13 @@ logger.setLevel(logging.INFO)
 handler = logging.FileHandler(filename='jeeves.log', encoding='utf-8', mode='a')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
-
 # setup discord.py
 client = discord.Client()
 e = discord.Embed()
+# setup gspread
+scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+creds = ServiceAccountCredentials.from_json_keyfile_name('secret.json', scope)
+gclient = gspread.authorize(creds)
 
 @client.event
 async def on_message(message):
@@ -70,8 +75,3 @@ async def on_ready():
 
 if __name__ == '__main__':
     client.run(env.TOKEN)
-
-## TODO
-# /tenor andere syntax
-# tenor android keyboard andere syntax (https://c.tenor.com/)
-# giphy verdubbelt url
