@@ -19,7 +19,7 @@ client = discord.Client()
 e = discord.Embed()
 # setup gspread
 scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('secret.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('jeevesbot/secret.json', scope)
 gclient = gspread.authorize(creds)
 
 @client.event
