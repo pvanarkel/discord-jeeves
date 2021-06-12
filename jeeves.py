@@ -48,6 +48,16 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
                 logger.info(message.author)
                 logger.info(gif_url)
+    if message.content.startswith('https://c.tenor.com/'):
+        roles = functions.checkrole(message.author.roles)
+        channel = functions.checkchannel(message.channel.id) 
+        embed_url = message.content
+        embed = e.set_image(url=embed_url)
+        if channel is True:
+            if roles is not True:
+                await message.channel.send(embed=embed)
+                logger.info(message.author)
+                logger.info(embed_url)                
     if message.content.startswith('https://giphy.com/'):
         roles = functions.checkrole(message.author.roles)
         channel = functions.checkchannel(message.channel.id)
