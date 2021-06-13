@@ -6,6 +6,7 @@ import logging
 from jeevesbot import bothelp, functions, env
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import asyncio
 
 # setup logging
 logging.basicConfig(level=logging.INFO)
@@ -40,7 +41,7 @@ async def on_message(message):
         channel = functions.checkchannel(message.channel.id)
         embed_url = message.content
         follow_url = embed_url + '.gif'
-        full_url = functions.resolve(follow_url)
+        full_url = asyncio.run(functions.resolve(follow_url))
         gif_url = full_url.split('?')[0]
         embed = e.set_image(url=gif_url)
         if channel is True:
