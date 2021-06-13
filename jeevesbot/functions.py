@@ -14,7 +14,7 @@ async def resolve(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             message = response.url
-    return message
+    return str(message)
 
 # use the dice module for rolling.
 def roll(notation):

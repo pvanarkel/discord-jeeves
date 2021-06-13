@@ -20,8 +20,8 @@ client = discord.Client()
 e = discord.Embed()
 # setup gspread
 scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('jeevesbot/secret.json', scope)
-gclient = gspread.authorize(creds)
+# creds = ServiceAccountCredentials.from_json_keyfile_name('jeevesbot/secret.json', scope)
+# gclient = gspread.authorize(creds)
 
 @client.event
 async def on_message(message):
@@ -41,7 +41,7 @@ async def on_message(message):
         channel = functions.checkchannel(message.channel.id)
         embed_url = message.content
         follow_url = embed_url + '.gif'
-        full_url = asyncio.run(functions.resolve(follow_url))
+        full_url = await functions.resolve(follow_url)
         gif_url = full_url.split('?')[0]
         embed = e.set_image(url=gif_url)
         if channel is True:
