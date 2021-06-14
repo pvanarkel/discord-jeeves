@@ -1,4 +1,3 @@
-`!roll`
 All forms of diceroll notations should work properly, including adding or detracting dice with each other, adding or detracting numbers from dicerolls, or even adding or detracting sums within brackets. Below are some examples.
 
 ```

@@ -31,9 +31,9 @@ async def on_message(message):
     if message.content.startswith('!help'):
         parameters = message.content.split(' ', 1)
         if len(parameters) == 2:
-            msg = format(bothelp.help(parameters[1]))
+            msg = bothelp.help(parameters[1])
         else:
-            msg = format(bothelp.help())
+            msg = bothelp.help()
         await message.author.send(msg)
     # giphy and tenor both have different structures to their links
     if message.content.startswith('https://tenor.com/'):
@@ -83,6 +83,7 @@ async def on_message(message):
 async def on_ready():
     print('### Active with id %s as %s ###' % (client.user.id,client.user.name) )
     activity = discord.Activity(name='Listening to !help', type=discord.ActivityType.listening)
+    await client.change_presence(activity=activity)
 
 if __name__ == '__main__':
     client.run(env.TOKEN)
