@@ -35,6 +35,8 @@ async def on_message(message):
         else:
             msg = bothelp.help()
         await message.author.send(msg)
+        logline = (str(message.author) + ' requested help')
+        logger.info(logline)
     # giphy and tenor both have different structures to their links
     if message.content.startswith('https://tenor.com/'):
         roles = functions.checkrole(message.author.roles)
@@ -47,8 +49,8 @@ async def on_message(message):
         if channel is True:
             if roles is not True:
                 await message.channel.send(embed=embed)
-                logger.info(message.author)
-                logger.info(gif_url)
+                logline = (str(message.author) + ' requested a gif: ' + str(gif_url))
+                logger.info(logline)
     if message.content.startswith('https://c.tenor.com/'):
         roles = functions.checkrole(message.author.roles)
         channel = functions.checkchannel(message.channel.id) 
@@ -57,8 +59,8 @@ async def on_message(message):
         if channel is True:
             if roles is not True:
                 await message.channel.send(embed=embed)
-                logger.info(message.author)
-                logger.info(embed_url)                
+                logline = (str(message.author) + ' requested a gif: ' + str(embed_url))
+                logger.info(logline)              
     if message.content.startswith('https://giphy.com/'):
         roles = functions.checkrole(message.author.roles)
         channel = functions.checkchannel(message.channel.id)
@@ -69,8 +71,8 @@ async def on_message(message):
         if channel is True:
             if roles is not True:
                 await message.channel.send(embed=embed)
-                logger.info(message.author)
-                logger.info(gif_url)
+                logline = (str(message.author) + ' requested a gif: ' + str(gif_url))
+                logger.info(logline)
     if message.content.startswith('!roll'):
         parameters = message.content.split(' ', 1)
         if len(parameters) == 2:
