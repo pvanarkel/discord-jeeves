@@ -2,7 +2,7 @@
 aiohttp
 async-timeout
 dice
-discord.py
+discord.py[voice]
 docopt
 multidict
 pyparsing

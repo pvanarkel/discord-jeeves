@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import logging
 from jeevesbot import bothelp, functions, env
 import gspread
@@ -20,8 +20,8 @@ client = discord.Client()
 e = discord.Embed()
 # setup gspread
 scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-# creds = ServiceAccountCredentials.from_json_keyfile_name('jeevesbot/secret.json', scope)
-# gclient = gspread.authorize(creds)
+creds = ServiceAccountCredentials.from_json_keyfile_name('jeevesbot/secret.json', scope)
+gclient = gspread.authorize(creds)
 
 @client.event
 async def on_message(message):
@@ -80,12 +80,13 @@ async def on_message(message):
             roll,result = functions.roll(param)
             msg = 'Rolling %s for {0.author.mention}: `%s`'.format(message) % (param,roll)
             await message.channel.send(msg)
-            
+
 @client.event
 async def on_ready():
     print('### Active with id %s as %s ###' % (client.user.id,client.user.name) )
     activity = discord.Activity(name='!help', type=discord.ActivityType.listening)
     await client.change_presence(activity=activity)
+    looptest.start()
 
 if __name__ == '__main__':
     client.run(env.TOKEN)
