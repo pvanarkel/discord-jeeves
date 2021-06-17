@@ -86,7 +86,6 @@ async def on_ready():
     print('### Active with id %s as %s ###' % (client.user.id,client.user.name) )
     activity = discord.Activity(name='!help', type=discord.ActivityType.listening)
     await client.change_presence(activity=activity)
-    looptest.start()
 
 if __name__ == '__main__':
     client.run(env.TOKEN)
