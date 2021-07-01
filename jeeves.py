@@ -60,7 +60,17 @@ async def on_message(message):
             if roles is not True:
                 await message.channel.send(embed=embed)
                 logline = (str(message.author) + ' requested a gif: ' + str(embed_url))
-                logger.info(logline)              
+                logger.info(logline)         
+    if message.content.endswith('.gif'):
+        roles = functions.checkrole(message.author.roles)
+        channel = functions.checkchannel(message.channel.id) 
+        embed_url = message.content
+        embed = e.set_image(url=embed_url)
+        if channel is True:
+            if roles is not True:
+                await message.channel.send(embed=embed)
+                logline = (str(message.author) + ' requested a gif: ' + str(embed_url))
+                logger.info(logline)       
     if message.content.startswith('https://giphy.com/'):
         roles = functions.checkrole(message.author.roles)
         channel = functions.checkchannel(message.channel.id)
