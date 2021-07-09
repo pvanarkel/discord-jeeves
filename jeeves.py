@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
+from discord.ext.commands import bot
+from discord.utils import get
 import logging
-from jeevesbot import bothelp, functions, env
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-import asyncio
+from jeevesbot import bothelp, functions, env, babbelbingo
 
 # setup logging
 logging.basicConfig(level=logging.INFO)
@@ -15,13 +14,23 @@ logger.setLevel(logging.INFO)
 handler = logging.FileHandler(filename='jeeves.log', encoding='utf-8', mode='a')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
-# setup discord.py
-client = discord.Client()
+
+# setup discord.py bot
+intents = discord.Intents().all()
+client = commands.Bot(command_prefix='!', intents=intents)
 e = discord.Embed()
-# setup gspread
-scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('jeevesbot/secret.json', scope)
-gclient = gspread.authorize(creds)
+
+# listen for emojis (set message id and role id in env.py)
+@client.event
+async def on_raw_reaction_add(payload):
+    message = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
+    guild_id = payload.guild_id
+    guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+    member = discord.utils.get(guild.members, id=payload.user_id)
+    role = guild.get_role(env.EMOJIREACTROLE)
+    reaction = discord.utils.get(message.reactions, emoji="☎️")
+    if message.id in env.EMOJIREACTMSG and reaction is not None:
+        await member.add_roles(role)
 
 @client.event
 async def on_message(message):
@@ -90,6 +99,17 @@ async def on_message(message):
             roll,result = functions.roll(param)
             msg = 'Rolling %s for {0.author.mention}: `%s`'.format(message) % (param,roll)
             await message.channel.send(msg)
+    if message.content.startswith('!bingo'):
+        name = message.author.name
+        bingocard = babbelbingo.bingo(name)
+        guild_id = message.guild.id
+        guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+        member = discord.utils.get(guild.members, id=message.author.id)
+        role = discord.utils.get(guild.roles , name='babbelbingo')
+        print(role)
+        await message.author.send(file=discord.File(bingocard))
+        await member.add_roles(role)    
+        
 
 @client.event
 async def on_ready():
@@ -99,3 +119,13 @@ async def on_ready():
 
 if __name__ == '__main__':
     client.run(env.TOKEN)
+
+
+    #     message = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
+    # guild_id = payload.guild_id
+    # guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+    # member = discord.utils.get(guild.members, id=payload.user_id)
+    # role = guild.get_role(env.EMOJIREACTROLE)
+    # reaction = discord.utils.get(message.reactions, emoji="☎️")
+    # if message.id in env.EMOJIREACTMSG and reaction is not None:
+    #     await member.add_roles(role)
