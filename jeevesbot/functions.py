@@ -1,13 +1,8 @@
 #!/usr/bin/env python 3
 
 from jeevesbot import env
-# import urllib
 import aiohttp
 import dice
-
-# This function is necessary for tenor, because they do not allow linking directly to the gif and need resolving.
-#def resolve(url):
-#    return urllib.request.urlopen(url).url
 
 # This function is necessary for tenor, because they do not allow linking directly to the gif and need resolving. ASYNC VERSION
 async def resolve(url):
@@ -34,3 +29,4 @@ def checkchannel(channelid):
         return True
     else:
         return False
+
