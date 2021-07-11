@@ -2,8 +2,6 @@
 
 import discord
 from discord.ext import commands
-# from discord.ext.commands import bot
-from discord.utils import get
 import logging
 from jeevesbot import bothelp, functions, env, babbelbingo
 
@@ -17,25 +15,13 @@ logger.addHandler(handler)
 
 # setup discord.py bot
 intents = discord.Intents().all()
-client = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
 e = discord.Embed()
 
-# listen for emojis (set message id and role id in env.py)
-@client.event
-async def on_raw_reaction_add(payload):
-    message = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
-    guild_id = payload.guild_id
-    guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
-    member = discord.utils.get(guild.members, id=payload.user_id)
-    role = guild.get_role(env.EMOJIREACTROLE)
-    reaction = discord.utils.get(message.reactions, emoji="☎️")
-    if message.id in env.EMOJIREACTMSG and reaction is not None:
-        await member.add_roles(role)
-
-@client.event
+@bot.event
 async def on_message(message):
     # we do not want the bot to reply to itself
-    if message.author == client.user:
+    if message.author == bot.user:
         return
     if message.content.startswith('!help'):
         parameters = message.content.split(' ', 1)
@@ -93,7 +79,7 @@ async def on_message(message):
         name = message.author.name
         bingocard = babbelbingo.bingo(name)
         guild_id = message.guild.id
-        guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+        guild = discord.utils.find(lambda g: g.id == guild_id, bot.guilds)
         member = discord.utils.get(guild.members, id=message.author.id)
         role = discord.utils.get(guild.roles , name='babbelbingo')
         await message.author.send(file=discord.File(bingocard))
@@ -108,11 +94,11 @@ async def on_message(message):
         msg = 'https://bunq.me/larpzomerfestival'
         await message.channel.send(msg)
         
-@client.event
+@bot.event
 async def on_ready():
-    print('### Active with id %s as %s ###' % (client.user.id,client.user.name) )
+    print('### Active with id %s as %s ###' % (bot.user.id,bot.user.name) )
     activity = discord.Activity(name='!help', type=discord.ActivityType.listening)
-    await client.change_presence(activity=activity)
+    await bot.change_presence(activity=activity)
 
 if __name__ == '__main__':
-    client.run(env.TOKEN)
+    bot.run(env.TOKEN)

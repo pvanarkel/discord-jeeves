@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
 
-from collections import defaultdict
 import time
 import discord
 from discord.ext import commands
 import sys
 import ast
-import itertools
-from discord.utils import get
+from ..jeevesbot import env
 
-from pyasn1.type.constraint import PermittedAlphabetConstraint
-
-# general @ test = 749399756752814105
+## Standalone script for emoji-vvdd
 
 # setup discord.py bot
 intents = discord.Intents().all()
@@ -32,7 +28,7 @@ async def score(question, score):
     
 async def run_script(params):
     params = params
-    channel = client.get_channel(790908319005933598)  # vvdd 729667183126511617 # tech 790908319005933598 # test 749399756752814105
+    channel = client.get_channel(729667183126511617)  # vvdd 729667183126511617 # tech 790908319005933598 # test 749399756752814105
     emoji_numbers = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣']
     question = params[0] # string
     answers = ast.literal_eval(params[1]) # list
@@ -72,6 +68,7 @@ async def run_script(params):
     f.set_author(name='Jeeves', icon_url='https://cdn.hippogrief.nl/jeevesbot/jeeves.jpg')
     f.add_field(name=question, value='\u200b', inline=False)
     f.add_field(name=hoogste_score, value=score, inline=False)
+    f.set_footer(text="Je mag blijven doorstemmen, deze tussenstand zal niet worden bijgewerkt meer verder.")
     f.set_thumbnail(url='https://cdn.hippogrief.nl/jeevesbot/logo.jpg')
     message = await channel.send(embed=f)
     
@@ -85,4 +82,4 @@ async def on_ready():
     await run_script(params)
 
 if __name__ == '__main__':
-    client.run('ODE5NjMyNDg1MjU5ODA0NzU0.YEpcPA.I-i1tDIV1vP7FW6-8cA7YLH5lN4')
+    client.run(env.TOKEN)
