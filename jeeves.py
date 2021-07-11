@@ -2,7 +2,7 @@
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import bot
+# from discord.ext.commands import bot
 from discord.utils import get
 import logging
 from jeevesbot import bothelp, functions, env, babbelbingo
@@ -60,16 +60,6 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
                 logline = (str(message.author) + ' requested a gif: ' + str(gif_url))
                 logger.info(logline)
-    if message.content.startswith('https://c.tenor.com/'):
-        roles = functions.checkrole(message.author.roles)
-        channel = functions.checkchannel(message.channel.id) 
-        embed_url = message.content
-        embed = e.set_image(url=embed_url)
-        if channel is True:
-            if roles is not True:
-                await message.channel.send(embed=embed)
-                logline = (str(message.author) + ' requested a gif: ' + str(embed_url))
-                logger.info(logline)         
     if message.content.endswith('.gif'):
         roles = functions.checkrole(message.author.roles)
         channel = functions.checkchannel(message.channel.id) 
@@ -106,11 +96,18 @@ async def on_message(message):
         guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
         member = discord.utils.get(guild.members, id=message.author.id)
         role = discord.utils.get(guild.roles , name='babbelbingo')
-        print(role)
         await message.author.send(file=discord.File(bingocard))
-        await member.add_roles(role)    
+        await member.add_roles(role)
+    if message.content.startswith('!youtube'):
+        msg = 'https://www.youtube.com/channel/UCTAnkjUOud_HdKhY_hi2ISA'
+        await message.channel.send(msg)     
+    if message.content.startswith('!blokkenschema'):
+        msg = 'https://www.larp-platform.nl/zomer-festival/blokkenschema/'
+        await message.channel.send(msg)
+    if message.content.startswith('!donatie'):
+        msg = 'https://bunq.me/larpzomerfestival'
+        await message.channel.send(msg)
         
-
 @client.event
 async def on_ready():
     print('### Active with id %s as %s ###' % (client.user.id,client.user.name) )
@@ -119,13 +116,3 @@ async def on_ready():
 
 if __name__ == '__main__':
     client.run(env.TOKEN)
-
-
-    #     message = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
-    # guild_id = payload.guild_id
-    # guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
-    # member = discord.utils.get(guild.members, id=payload.user_id)
-    # role = guild.get_role(env.EMOJIREACTROLE)
-    # reaction = discord.utils.get(message.reactions, emoji="☎️")
-    # if message.id in env.EMOJIREACTMSG and reaction is not None:
-    #     await member.add_roles(role)
