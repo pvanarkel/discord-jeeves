@@ -22,7 +22,7 @@ def babbelbingo_file():
 
 def make_bingocard(name, questions):
     image = Image.open('jeevesbot/files/bingokaart.png')
-    font_name = ImageFont.truetype('jeevesbot/files/Overpass-regular.ttf', 13)
+    font_name = ImageFont.truetype('jeevesbot/files/Overpass-Regular.ttf', 13)
     draw = ImageDraw.Draw(image)
     wrapper = textwrap.TextWrapper(width=20, break_on_hyphens=True)
     box01 = '\n'.join(wrapper.wrap(questions[0]))
