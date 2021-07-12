@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import logging
-from jeevesbot import bothelp, functions, env, babbelbingo
+from jeevesbot import bothelp, functions, env
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import asyncio
 
 # setup logging
 logging.basicConfig(level=logging.INFO)
@@ -12,16 +15,18 @@ logger.setLevel(logging.INFO)
 handler = logging.FileHandler(filename='jeeves.log', encoding='utf-8', mode='a')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
-
-# setup discord.py bot
-intents = discord.Intents().all()
-bot = commands.Bot(command_prefix='!', intents=intents)
+# setup discord.py
+client = discord.Client()
 e = discord.Embed()
+# setup gspread
+scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+creds = ServiceAccountCredentials.from_json_keyfile_name('jeevesbot/secret.json', scope)
+gclient = gspread.authorize(creds)
 
-@bot.event
+@client.event
 async def on_message(message):
     # we do not want the bot to reply to itself
-    if message.author == bot.user:
+    if message.author == client.user:
         return
     if message.content.startswith('!help'):
         parameters = message.content.split(' ', 1)
@@ -46,7 +51,7 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
                 logline = (str(message.author) + ' requested a gif: ' + str(gif_url))
                 logger.info(logline)
-    if message.content.endswith('.gif'):
+    if message.content.startswith('https://c.tenor.com/'):
         roles = functions.checkrole(message.author.roles)
         channel = functions.checkchannel(message.channel.id) 
         embed_url = message.content
@@ -55,7 +60,7 @@ async def on_message(message):
             if roles is not True:
                 await message.channel.send(embed=embed)
                 logline = (str(message.author) + ' requested a gif: ' + str(embed_url))
-                logger.info(logline)       
+                logger.info(logline)          
     if message.content.startswith('https://giphy.com/'):
         roles = functions.checkrole(message.author.roles)
         channel = functions.checkchannel(message.channel.id)
@@ -68,6 +73,26 @@ async def on_message(message):
                 await message.channel.send(embed=embed)
                 logline = (str(message.author) + ' requested a gif: ' + str(gif_url))
                 logger.info(logline)
+    if message.content.endswith('.gif'):
+        roles = functions.checkrole(message.author.roles)
+        channel = functions.checkchannel(message.channel.id) 
+        embed_url = message.content
+        embed = e.set_image(url=embed_url)
+        if channel is True:
+            if roles is not True:
+                await message.channel.send(embed=embed)
+                logline = (str(message.author) + ' requested a gif: ' + str(embed_url))
+                logger.info(logline)      
+    if message.content.endswith('.webm'):
+        roles = functions.checkrole(message.author.roles)
+        channel = functions.checkchannel(message.channel.id) 
+        embed_url = message.content
+        embed = e.set_image(url=embed_url)
+        if channel is True:
+            if roles is not True:
+                await message.channel.send(embed=embed)
+                logline = (str(message.author) + ' requested a gif: ' + str(embed_url))
+                logger.info(logline)  
     if message.content.startswith('!roll'):
         parameters = message.content.split(' ', 1)
         if len(parameters) == 2:
@@ -75,30 +100,12 @@ async def on_message(message):
             roll,result = functions.roll(param)
             msg = 'Rolling %s for {0.author.mention}: `%s`'.format(message) % (param,roll)
             await message.channel.send(msg)
-    if message.content.startswith('!bingo'):
-        name = message.author.name
-        bingocard = babbelbingo.bingo(name)
-        guild_id = message.guild.id
-        guild = discord.utils.find(lambda g: g.id == guild_id, bot.guilds)
-        member = discord.utils.get(guild.members, id=message.author.id)
-        role = discord.utils.get(guild.roles , name='babbelbingo')
-        await message.author.send(file=discord.File(bingocard))
-        await member.add_roles(role)
-    if message.content.startswith('!youtube'):
-        msg = 'https://www.youtube.com/channel/UCTAnkjUOud_HdKhY_hi2ISA'
-        await message.channel.send(msg)     
-    if message.content.startswith('!blokkenschema'):
-        msg = 'https://www.larp-platform.nl/zomer-festival/blokkenschema/'
-        await message.channel.send(msg)
-    if message.content.startswith('!donatie'):
-        msg = 'https://bunq.me/larpzomerfestival'
-        await message.channel.send(msg)
-        
-@bot.event
+
+@client.event
 async def on_ready():
-    print('### Active with id %s as %s ###' % (bot.user.id,bot.user.name) )
+    print('### Active with id %s as %s ###' % (client.user.id,client.user.name) )
     activity = discord.Activity(name='!help', type=discord.ActivityType.listening)
-    await bot.change_presence(activity=activity)
+    await client.change_presence(activity=activity)
 
 if __name__ == '__main__':
-    bot.run(env.TOKEN)
+    client.run(env.TOKEN)
