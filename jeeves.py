@@ -15,7 +15,7 @@ logger.addHandler(handler)
 
 # setup discord.py bot
 intents = discord.Intents().all()
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents, help_command=None)
 e = discord.Embed()
 
 @bot.event
