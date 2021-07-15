@@ -74,11 +74,11 @@ def make_bingocard(name, questions):
     draw.multiline_text((497, 756.5), box23, (0, 0, 0), font=font_name, align='center', anchor='mm', spacing=8)
     draw.multiline_text((631, 756.5), box24, (0, 0, 0), font=font_name, align='center', anchor='mm', spacing=8)
     table = str.maketrans({'(':None, ')':None, '/':None, ' ':'_'})
-    image.save('jeevesbot/files/generated_bingocards/' + name.translate(table) + '.png')
+    image.save('jeevesbot/files/generated_bingocards/' + str(name).translate(table) + '.png')
 
 def bingo(name):
     questions = babbelbingo_file()
     make_bingocard(name, questions)
     table = str.maketrans({'(':None, ')':None, '/':None, ' ':'_'})
-    bingoimage = ('jeevesbot/files/generated_bingocards/' + name.translate(table) + '.png')
+    bingoimage = ('jeevesbot/files/generated_bingocards/' + str(name).translate(table) + '.png')
     return bingoimage
