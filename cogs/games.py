@@ -30,7 +30,7 @@ class Games(commands.Cog):
             msg = f'Rolling %s for {ctx.message.author.mention}: `%s`'.format(roll) % (param,roll)
             logline = f'Rolling %s for {ctx.message.author}: `%s`'.format(roll) % (param,roll)
             logger.info(logline)
-            await ctx.message.channel.send(msg)
+            await ctx.send(msg)
 
 
     @commands.command()
