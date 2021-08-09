@@ -38,11 +38,7 @@ class Games(commands.Cog):
     async def bingo(self, ctx):
         name = ctx.message.author.name
         bingocard = babbelbingo.bingo(name)
-        guild = ctx.message.guild
-        member = discord.utils.get(guild.members, id=ctx.message.author.id)
-        role = discord.utils.get(guild.roles , name='babbelbingo')
         await ctx.author.send(file=discord.File(bingocard))
-        await member.add_roles(role)
 
 
     @commands.Cog.listener()
