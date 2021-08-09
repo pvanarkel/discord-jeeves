@@ -13,7 +13,7 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 
-class Miscellaneous(commands.Cog):
+class Misc(commands.Cog):
 
 
     def __init__(self, bot):
@@ -37,4 +37,4 @@ class Miscellaneous(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Miscellaneous(bot))
+    bot.add_cog(Misc(bot))
