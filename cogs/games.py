@@ -2,16 +2,14 @@ import discord
 from discord.ext import commands
 import logging
 from jeevesbot import functions, babbelbingo
+import log
 
-e = discord.Embed()
 
 # setup logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger('jeeves')
-logger.setLevel(logging.INFO)
-handler = logging.FileHandler(filename='jeeves.log', encoding='utf-8', mode='a')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
+logger = log.get_logger(__name__)
+
+
+e = discord.Embed()
 
 
 class Games(commands.Cog):
@@ -44,6 +42,7 @@ class Games(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('##### GAMES module active')
+
 
 def setup(bot):
     bot.add_cog(Games(bot))
