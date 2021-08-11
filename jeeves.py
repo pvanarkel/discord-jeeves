@@ -2,17 +2,20 @@
 
 import discord
 from discord.ext import commands
-import logging
 from jeevesbot import env
 import os
+import log
+import logging.config
+from logging import getLogger
+
+
+
+# setup root logger handlers
+logging.config.dictConfig(log.LOGGING)
 
 # setup logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger('jeeves')
-logger.setLevel(logging.INFO)
-handler = logging.FileHandler(filename='jeeves.log', encoding='utf-8', mode='a')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
+log = getLogger(__name__)
+
 
 # setup discord.py bot
 intents = discord.Intents().all()
@@ -24,14 +27,14 @@ e = discord.Embed()
 @commands.has_permissions(administrator=True)
 async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
-    print(extension, 'module loaded')
+    log.info(f'{extension} module loaded')
 
 
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
-    print(extension, 'module unloaded')
+    log.info(f'{extension} module unloaded')
 
 
 @bot.command()
@@ -39,7 +42,7 @@ async def unload(ctx, extension):
 async def reload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
-    print(extension, 'module reloaded')
+    log.info(f'{extension} module reloaded')
 
 
 @bot.event
@@ -56,3 +59,4 @@ for filename in os.listdir('./cogs'):
 
 if __name__ == '__main__':
     bot.run(env.TOKEN)
+

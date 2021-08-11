@@ -2,16 +2,14 @@ import discord
 from discord.ext import commands
 import logging
 from jeevesbot import functions
+from logging import getLogger
 
-e = discord.Embed()
 
 # setup logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger('jeeves')
-logger.setLevel(logging.INFO)
-handler = logging.FileHandler(filename='jeeves.log', encoding='utf-8', mode='a')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
+log = getLogger(__name__)
+
+
+e = discord.Embed()
 
 
 class Gif(commands.Cog):
@@ -35,7 +33,7 @@ class Gif(commands.Cog):
                 if roles is not True:
                     await message.channel.send(embed=embed)
                     logline = (str(message.author) + ' requested a gif: ' + str(gif_url))
-                    logger.info(logline)
+                    log.info(logline)
         if message.content.endswith('.gif'): 
             roles = functions.checkrole(message.author.roles)
             channel = functions.checkchannel(message.channel.id) 
@@ -45,7 +43,7 @@ class Gif(commands.Cog):
                 if roles is not True:
                     await message.channel.send(embed=embed)
                     logline = (str(message.author) + ' requested a gif: ' + str(embed_url))
-                    logger.info(logline)       
+                    log.info(logline)       
         if message.content.startswith('https://giphy.com/'):
             roles = functions.checkrole(message.author.roles)
             channel = functions.checkchannel(message.channel.id)
@@ -57,12 +55,12 @@ class Gif(commands.Cog):
                 if roles is not True:
                     await message.channel.send(embed=embed)
                     logline = (str(message.author) + ' requested a gif: ' + str(gif_url))
-                    logger.info(logline)
+                    log.info(logline)
 
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('##### GIF module active')
+        log.info(f'module active')
 
 
 def setup(bot):
