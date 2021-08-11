@@ -1,10 +1,11 @@
 import discord
 from discord.ext import commands
-import log
+from logging import getLogger
 
 
 # setup logging
-logger = log.get_logger(__name__)
+log = getLogger(__name__)
+
 
 embed = discord.Embed()
 
@@ -20,12 +21,12 @@ class Admin(commands.Cog):
     @commands.is_owner()
     async def clear(self, ctx, amount=1):
         await ctx.channel.purge(limit=amount)
-        logger.warn(f'{ctx.message.author.name} cleared {amount} messages')
+        log.warn(f'{ctx.message.author.name} cleared {amount} messages')
         
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('##### ADMIN module active')
+        log.info(f'module active')
 
 
 def setup(bot):

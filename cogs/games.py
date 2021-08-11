@@ -2,11 +2,11 @@ import discord
 from discord.ext import commands
 import logging
 from jeevesbot import functions, babbelbingo
-import log
+from logging import getLogger
 
 
 # setup logging
-logger = log.get_logger(__name__)
+log = getLogger(__name__)
 
 
 e = discord.Embed()
@@ -27,7 +27,7 @@ class Games(commands.Cog):
             roll,result = functions.roll(param)
             msg = f'Rolling %s for {ctx.message.author.mention}: `%s`'.format(roll) % (param,roll)
             logline = f'Rolling %s for {ctx.message.author}: `%s`'.format(roll) % (param,roll)
-            logger.info(logline)
+            log.info(logline)
             await ctx.send(msg)
 
 
@@ -41,7 +41,7 @@ class Games(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('##### GAMES module active')
+        log.info(f'module active')
 
 
 def setup(bot):
