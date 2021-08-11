@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
-import log
+from logging import getLogger
 
 
 # setup logging
-logger = log.get_logger(__name__)
+log = getLogger(__name__)
 
 
 e = discord.Embed()
@@ -19,8 +19,8 @@ class Moderator(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('##### MODERATOR module active')
-
+        log.info(f'module active')
+        
 
 def setup(bot):
     bot.add_cog(Moderator(bot))

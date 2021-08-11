@@ -2,11 +2,11 @@ import discord
 from discord.ext import commands
 import logging
 from jeevesbot import functions
-import log
+from logging import getLogger
 
 
 # setup logging
-logger = log.get_logger(__name__)
+log = getLogger(__name__)
 
 
 e = discord.Embed()
@@ -33,7 +33,7 @@ class Gif(commands.Cog):
                 if roles is not True:
                     await message.channel.send(embed=embed)
                     logline = (str(message.author) + ' requested a gif: ' + str(gif_url))
-                    logger.info(logline)
+                    log.info(logline)
         if message.content.endswith('.gif'): 
             roles = functions.checkrole(message.author.roles)
             channel = functions.checkchannel(message.channel.id) 
@@ -43,7 +43,7 @@ class Gif(commands.Cog):
                 if roles is not True:
                     await message.channel.send(embed=embed)
                     logline = (str(message.author) + ' requested a gif: ' + str(embed_url))
-                    logger.info(logline)       
+                    log.info(logline)       
         if message.content.startswith('https://giphy.com/'):
             roles = functions.checkrole(message.author.roles)
             channel = functions.checkchannel(message.channel.id)
@@ -55,12 +55,12 @@ class Gif(commands.Cog):
                 if roles is not True:
                     await message.channel.send(embed=embed)
                     logline = (str(message.author) + ' requested a gif: ' + str(gif_url))
-                    logger.info(logline)
+                    log.info(logline)
 
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('##### GIF module active')
+        log.info(f'module active')
 
 
 def setup(bot):
