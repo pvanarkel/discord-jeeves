@@ -21,7 +21,7 @@ class Admin(commands.Cog):
     @commands.is_owner()
     async def clear(self, ctx, amount=1):
         await ctx.channel.purge(limit=amount)
-        log.warn(f'{ctx.message.author.name} cleared {amount} messages')
+        log.warn(f'{ctx.message.author} cleared {amount} messages')
         
 
     @commands.Cog.listener()

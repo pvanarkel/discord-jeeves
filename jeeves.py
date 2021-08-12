@@ -27,14 +27,14 @@ e = discord.Embed()
 @commands.has_permissions(administrator=True)
 async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
-    log.info(f'{extension} module loaded')
+    log.info(f'{ctx.message.author} loaded the {extension} module')
 
 
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
-    log.info(f'{extension} module unloaded')
+    log.info(f'{ctx.message.author} unloaded the {extension} module')
 
 
 @bot.command()
@@ -42,7 +42,7 @@ async def unload(ctx, extension):
 async def reload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
-    log.info(f'{extension} module reloaded')
+    log.info(f'{ctx.message.author} reloaded the {extension} module')
 
 
 @bot.event
