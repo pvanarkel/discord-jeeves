@@ -63,5 +63,5 @@ class Gif(commands.Cog):
         log.info(f'module active')
 
 
-def setup(bot):
-    bot.add_cog(Gif(bot))
+async def setup(bot):
+    await bot.add_cog(Gif(bot))

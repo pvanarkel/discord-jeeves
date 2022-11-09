@@ -32,6 +32,6 @@ class Links(commands.Cog):
         log.info(f'module active')
 
 
-def setup(bot):
-    bot.add_cog(Links(bot))
+async def setup(bot):
+    await bot.add_cog(Links(bot))
 

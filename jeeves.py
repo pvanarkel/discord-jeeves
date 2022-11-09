@@ -7,43 +7,44 @@ import os
 import log
 import logging.config
 from logging import getLogger
-
+import asyncio
 
 
 # setup root logger handlers
 logging.config.dictConfig(log.LOGGING)
-
 # setup logging
 log = getLogger(__name__)
-
 
 # setup discord.py bot
 intents = discord.Intents().all()
 bot = commands.Bot(command_prefix='!', intents=intents)
 e = discord.Embed()
 
-
-@bot.command()
+@bot.command(name='load', hidden=True)
 @commands.has_permissions(administrator=True)
 async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
     log.info(f'{ctx.message.author} loaded the {extension} module')
 
 
-@bot.command()
+@bot.command(name='unload', hidden=True)
 @commands.has_permissions(administrator=True)
 async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     log.info(f'{ctx.message.author} unloaded the {extension} module')
 
 
-@bot.command()
+@bot.command(name='reload', hidden=True)
 @commands.has_permissions(administrator=True)
 async def reload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
     log.info(f'{ctx.message.author} reloaded the {extension} module')
 
+async def load_extensions():
+    for filename in os.listdir('./cogs'):
+        if filename.endswith('.py'):
+            await bot.load_extension(f'cogs.{filename[:-3]}')
 
 @bot.event
 async def on_ready():
@@ -51,12 +52,9 @@ async def on_ready():
     activity = discord.Activity(name='!help', type=discord.ActivityType.listening)
     await bot.change_presence(activity=activity)
 
+async def main():
+    async with bot:
+        await load_extensions()
+        await bot.start(env.TOKEN)
 
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
-
-
-if __name__ == '__main__':
-    bot.run(env.TOKEN)
-
+asyncio.run(main())
