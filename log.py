@@ -17,7 +17,7 @@ LOGGING = {
             'level' : 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'standard',
-            'filename': 'jeeves.log',
+            'filename': 'logs/jeeves.log',
             'maxBytes': 4096,
             'backupCount': 7
         }
