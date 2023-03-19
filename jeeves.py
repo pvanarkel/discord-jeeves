@@ -15,10 +15,12 @@ logging.config.dictConfig(log.LOGGING)
 # setup logging
 log = getLogger(__name__)
 
+
 # setup discord.py bot
 intents = discord.Intents().all()
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents, help_command=None)
 e = discord.Embed()
+
 
 @bot.command(name='load', hidden=True)
 @commands.has_permissions(administrator=True)
@@ -41,20 +43,24 @@ async def reload(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
     log.info(f'{ctx.message.author} reloaded the {extension} module')
 
+
 async def load_extensions():
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             await bot.load_extension(f'cogs.{filename[:-3]}')
 
+
 @bot.event
 async def on_ready():
-    print('### Active with id %s as %s ###' % (bot.user.id,bot.user.name) )
+    log.info(f'Active with ID:{bot.user.id} as {bot.user.name}')
     activity = discord.Activity(name='!help', type=discord.ActivityType.listening)
     await bot.change_presence(activity=activity)
+
 
 async def main():
     async with bot:
         await load_extensions()
         await bot.start(env.TOKEN)
+
 
 asyncio.run(main())

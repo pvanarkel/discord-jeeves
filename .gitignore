@@ -1,0 +1,9 @@
+jeevesbot/env.py
+jeevesbot/secret.json
+logs/
+__init__.py
+*.pyc
+__pycache__/*
+cogs/__pycache__/*
+jeevesbot/__pycache__/*
+.vscode/
