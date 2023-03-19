@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import logging
 from jeevesbot import functions
 from logging import getLogger
 
@@ -13,7 +12,7 @@ e = discord.Embed()
 
 
 class Gif(commands.Cog):
-
+    """ Ensures that high-risk channels don't display embedded links, but only gifs."""
 
     def __init__(self, bot):
         self.bot = bot

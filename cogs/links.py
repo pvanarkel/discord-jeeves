@@ -11,7 +11,7 @@ e = discord.Embed()
 
 
 class Links(commands.Cog):
-
+    """ Handige linkjes! """
 
     def __init__(self, bot):
         self.bot = bot
@@ -19,12 +19,32 @@ class Links(commands.Cog):
 
     @commands.command()
     async def youtube(self, ctx):
+        """ LARP Platform YouTube kanaal """
         await ctx.send('https://www.youtube.com/channel/UCTAnkjUOud_HdKhY_hi2ISA')
 
 
     @commands.command()
     async def donatie(self, ctx):
-        await ctx.send('<https://bunq.me/larpzomerfestival>')
+        """ LARP Platform / Stichting Verhaal in Uitvoering Donatie"""
+        await ctx.send('<https://bunq.me/larpplatform>')
+
+
+    @commands.command()
+    async def agenda(self, ctx):
+        """ LARP Agenda"""
+        await ctx.send('<https://www.larp-platform.nl/kalender/>')
+
+
+    @commands.command()
+    async def evenementen(self, ctx):
+        """ LARP Agenda Evenementenoverzicht"""
+        await ctx.send('<https://www.larp-platform.nl/evenementenoverzicht/>')
+
+
+    @commands.command()
+    async def organisaties(self, ctx):
+        """ LARP Agenda Organisatieoverzicht"""
+        await ctx.send('<https://www.larp-platform.nl/organisaties/>')
 
 
     @commands.Cog.listener()

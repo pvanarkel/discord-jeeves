@@ -11,7 +11,7 @@ e = discord.Embed()
 
 
 class Misc(commands.Cog):
-
+    """ Van alles en nog wat. """
 
     def __init__(self, bot):
         self.bot = bot
