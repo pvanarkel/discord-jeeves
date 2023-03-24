@@ -11,6 +11,7 @@ pylint
 gspread
 oauth2client
 Pillow
+pytube
 
 # needs this version, otherwise TypeErrors will break stuff
 yarl==1.4.2
