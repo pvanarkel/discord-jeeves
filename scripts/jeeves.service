@@ -1,0 +1,12 @@
+[Unit]
+Description=Jeeves Discord Bot
+After=network.target
+
+[Service]
+User=<username>
+WorkingDirectory=/path/to/bot/directory
+ExecStart=/usr/bin/python3 /path/to/bot/directory/bot.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -14,9 +14,4 @@ All purge commands also delete their own message.
 
 ---
 
-`!flairsetup`
-    Can be used to reset the flair embed for Jeeves. Needs manual steps to fix the bot giving out roles. Don't use unless you know what you're doing.
-
----
-
 *To easily copy IDs of discord items, turn on Developer Mode in Advanced settings in your profile. After this, you can right click on almost all items in discord to get the "Copy ID" option.* 
