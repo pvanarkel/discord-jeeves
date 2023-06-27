@@ -1,6 +1,5 @@
 
 ** GIFs **
-** Flair **
 
 ** Extra informatie voor het !roll commando **
 

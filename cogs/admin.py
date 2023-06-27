@@ -9,9 +9,6 @@ from discord import User, errors, TextChannel, Forbidden
 log = getLogger(__name__)
 
 
-embed = discord.Embed()
-
-
 class Admin(commands.Cog):
     """ Admin Commands, Use at own risk. """
     def __init__(self, bot):
