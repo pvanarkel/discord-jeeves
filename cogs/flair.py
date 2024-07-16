@@ -12,7 +12,7 @@ class Flair(commands.Cog):
     """ This part of the bot is responsible for giving users roles! """
     def __init__(self, bot):
         self.bot = bot
-        self.message_id = 1084937456819908679
+        self.message_id = 1087124044119281675
         self.reactions = {
             '1️⃣' : env.FLAIRROLES[0],
             '2️⃣' : env.FLAIRROLES[1],
