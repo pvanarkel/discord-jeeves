@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from jeevesbot import functions, babbelbingo
+from jeevesbot import functions
 from logging import getLogger
 
 
