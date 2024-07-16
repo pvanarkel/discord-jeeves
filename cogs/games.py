@@ -18,15 +18,6 @@ class Games(commands.Cog):
 
 
     @commands.command()
-    @commands.guild_only()
-    async def bingo(self, ctx):
-        """ Maak een babbelbingo kaart (staat niet altijd aan) """
-        name = ctx.message.author.name
-        bingocard = babbelbingo.bingo(name)
-        await ctx.author.send(file=discord.File(bingocard))
-    
-    
-    @commands.command()
     async def roll(self, ctx):
         """ Roll the dice! 
 
