@@ -5,7 +5,6 @@ Dit zorgt er helaas wel voor dat GIFjes in die kanalen niet werken. Door Jeeves 
 
 ** Flair **
 In het #rollen kanaal staat een bericht met daar onder emoji. Als je een voornaamwoord of andere flair rol in je account wil hebben, kun je op de emoji klikken en dan krijg je de rol automatisch.
-Wil je de rol weg hebben? Klik dan nogmaals op de emoji en de rol wordt weg gehaald!
 
 ** Extra informatie voor het !roll commando **
 
