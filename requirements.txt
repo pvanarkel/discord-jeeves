@@ -2,13 +2,14 @@
 aiohttp
 async-timeout
 dice
-discord.py
+discord.py[voice]
 docopt
 multidict
 pyparsing
 typing-extensions
 pylint
 pytube
+sqlite3
 
 # needs this version, otherwise TypeErrors will break stuff
 yarl==1.4.2
