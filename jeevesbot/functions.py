@@ -17,16 +17,3 @@ def roll(notation):
     result = int(roll)
     return roll,result
 
-# check if user has admin role and output True if it's the case.
-def checkrole(roles):
-    for role in roles:
-        if str(role) == env.ADMIN_ROLE:
-            return True
-
-# check if the source channel is in the list of channels that are watched by the bot.
-def checkchannel(channelid):
-    if channelid in env.PREVIEWCHANNELS:
-        return True
-    else:
-        return False
-
