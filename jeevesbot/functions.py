@@ -25,7 +25,7 @@ def checkrole(roles):
 
 # check if the source channel is in the list of channels that are watched by the bot.
 def checkchannel(channelid):
-    if channelid in env.PREVIEWCHANNELS:
+    if channelid in env.GIFCHANNELS:
         return True
     else:
         return False
