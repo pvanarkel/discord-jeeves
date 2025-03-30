@@ -3,9 +3,6 @@
 Om te voorkomen dat mensen een linkje posten die direct een confronterende preview kan geven, staan embeds uit in sommige kanalen waar daar meer kans op is.
 Dit zorgt er helaas wel voor dat GIFjes in die kanalen niet werken. Door Jeeves is het toch mogelijk om het GIFje te laten zien, zonder dat confronterende previews van links er ook zijn.
 
-** Flair **
-In het #rollen kanaal staat een bericht met daar onder emoji. Als je een voornaamwoord of andere flair rol in je account wil hebben, kun je op de emoji klikken en dan krijg je de rol automatisch.
-
 ** Extra informatie voor het !roll commando **
 
 - Simpele rolls

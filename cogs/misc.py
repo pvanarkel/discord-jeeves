@@ -2,10 +2,8 @@ import discord
 from discord.ext import commands
 from logging import getLogger
 
-
 # setup logging
 log = getLogger(__name__)
-
 
 e = discord.Embed()
 
@@ -17,12 +15,6 @@ class Misc(commands.Cog):
         self.bot = bot
 
     
-    @commands.command()
-    async def hug(self, ctx):
-        msg = f'Jeeves geeft {ctx.message.author.mention} een grote knuffel'
-        await ctx.send(msg)
-
-
     @commands.command()
     async def eirik(self, ctx):
         await ctx.send('Deze vraag heeft Eirik Fatland al beantwoord in 1997.')

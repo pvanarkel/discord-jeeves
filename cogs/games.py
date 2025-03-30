@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from jeevesbot import functions, babbelbingo
+from jeevesbot import functions
 from logging import getLogger
 
 
@@ -17,15 +17,6 @@ class Games(commands.Cog):
         self.bot = bot
 
 
-    @commands.command()
-    @commands.guild_only()
-    async def bingo(self, ctx):
-        """ Maak een babbelbingo kaart (staat niet altijd aan) """
-        name = ctx.message.author.name
-        bingocard = babbelbingo.bingo(name)
-        await ctx.author.send(file=discord.File(bingocard))
-    
-    
     @commands.command()
     async def roll(self, ctx):
         """ Roll the dice! 

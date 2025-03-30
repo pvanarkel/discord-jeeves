@@ -17,6 +17,7 @@ def roll(notation):
     result = int(roll)
     return roll,result
 
+<<<<<<< HEAD
 # check if user has admin role and output True if it's the case.
 def checkrole(roles):
     for role in roles:
@@ -30,3 +31,5 @@ def checkchannel(channelid):
     else:
         return False
 
+=======
+>>>>>>> d194332843b93f36e724aeca0dcd41c96a10ae95
